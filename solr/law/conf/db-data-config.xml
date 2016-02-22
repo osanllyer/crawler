@@ -1,0 +1,13 @@
+<dataConfig>
+    <dataSource driver="com.mysql.jdbc.Driver" url="jdbc:mysql://localhost:3306/lawdb" user="root" password="root" batchSize="-1"/>
+    <document>
+        <entity name="law" query="select * from law" 
+		id="id"
+	>
+            <entity name="law_item"  
+                    query="select content from law_item where law_id='${law.id}'" >
+            </entity>
+        </entity>
+    </document>
+</dataConfig>
+
