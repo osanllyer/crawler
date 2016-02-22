@@ -15,6 +15,7 @@ public class LawDao {
 	private final String INSERT_LAW_ITEM = "insert into law_item(law_id, content) values(?,?)";
 	private final String INSERT_LAST_ID = "SELECT LAST_INSERT_ID()";
 	
+	
 	public void insert(Law law){
 		
 		QueryRunner runner = new QueryRunner(DBConfig.getDataSource());
@@ -32,7 +33,6 @@ public class LawDao {
 			for(String item : law.getContent()){
 				runner.update(INSERT_LAW_ITEM, id.intValue(), item);
 			}
-			
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
