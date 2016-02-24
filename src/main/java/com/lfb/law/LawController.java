@@ -1,29 +1,37 @@
 package com.lfb.law;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.solr.core.query.SolrPageRequest;
+import org.springframework.data.solr.core.query.result.HighlightPage;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.lfb.crawler.dao.Law;
+
 @RestController
-@RequestMapping(value = "/", produces = MediaType.TEXT_PLAIN_VALUE)
+@RequestMapping(value = "/", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 public class LawController {
 
 	@Autowired
-	LawService service;
-	
+	LawSolrRepo repo;
 	
 	@RequestMapping(value="qs", method=RequestMethod.GET)
-	public String getSuggestion(
+	@ResponseBody
+	public Object getSuggestion(
 			 @RequestParam(value="q") String keyword,
-			 @RequestParam("callback") String callback,
-			 @RequestParam("lang") int lan,
-			 @RequestParam("_") String useless
+			 @RequestParam("callback") String callback
 			){
 		
-		return null;
+		Pageable page = new SolrPageRequest(0,10);
+		
+		HighlightPage<Law> pages = repo.findByTitle(keyword, page);
+		
+		return pages;
 	}
 	
 }

@@ -3,6 +3,8 @@ package com.lfb.crawler.dao;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.solr.client.solrj.beans.Field;
+
 /**
  * 
  * @author lifenbo
@@ -47,11 +49,25 @@ public class Law{
 		this.publisher = publisher;
 	}
 	
+	@Field("id")
+	private String id;
+	
+	@Field("title")
 	private String title;
+	
+	@Field("content")
 	private List<String> content;
+	
+	@Field("publish_date")
 	private Date publishDate;
+	
+	@Field("valid_since")
 	private Date validSince;
+	
+	@Field("docnum")
 	private String docNum;
+	
+	@Field("publisher")
 	private String publisher;
 	
 }

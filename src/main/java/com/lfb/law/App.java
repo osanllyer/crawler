@@ -1,20 +1,30 @@
 package com.lfb.law;
 
+import org.apache.solr.client.solrj.SolrServer;
+import org.apache.solr.client.solrj.impl.HttpSolrServer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
+import org.springframework.data.solr.repository.config.EnableSolrRepositories;
+
 
 @SpringBootApplication
+@Configuration
 @ComponentScan
 @EnableCaching
+@EnableSolrRepositories(basePackages={"com.lfb.law"}, multicoreSupport=true)
 public class App {
 
 	final Logger logger = LoggerFactory.getLogger(App.class);
+	private final String SOLR_HOST = "solr.host";
 	
 	@Autowired
 	Environment env;
@@ -23,4 +33,10 @@ public class App {
 		// TODO Auto-generated method stub
 		SpringApplication.run(App.class, args);
 	}
+	
+	 @Bean
+	  public SolrServer solrServer() {
+	    String solrHost = env.getRequiredProperty(SOLR_HOST);
+	    return new HttpSolrServer(solrHost);
+	  }
 }
