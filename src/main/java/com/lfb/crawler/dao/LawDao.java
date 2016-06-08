@@ -18,8 +18,9 @@ public class LawDao {
 	
 	public void insert(Law law){
 		
-		QueryRunner runner = new QueryRunner(DBConfig.getDataSource());
 		try {
+			
+			QueryRunner runner = DBConfig.getQueryRunner();
 			
 			runner.update(INSERT_LAW, 
 					law.getPublisher(),

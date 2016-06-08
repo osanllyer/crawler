@@ -7,6 +7,7 @@ import java.util.Properties;
 import javax.sql.DataSource;
 
 import org.apache.commons.dbcp.BasicDataSourceFactory;
+import org.apache.commons.dbutils.QueryRunner;
 
 import com.mysql.jdbc.Connection;
 
@@ -15,6 +16,12 @@ public class DBConfig {
     private static DataSource ds;  
       
     private static ThreadLocal<Connection> tl = new ThreadLocal<Connection>();  //map  
+	private static final QueryRunner runner = new QueryRunner(DBConfig.getDataSource());
+
+	public static QueryRunner getQueryRunner(){
+		return runner;
+	}
+	
     static{  
         try{  
             Properties prop = new Properties();  
@@ -44,4 +51,7 @@ public class DBConfig {
             throw new RuntimeException(e);  
         }  
     }  
+    
+	
+	
 }
