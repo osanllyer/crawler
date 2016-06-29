@@ -10,9 +10,11 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.UpdateProvider;
 
+import com.lfb.configure.PrimaryMapper;
 import com.lfb.user.Authority;
 import com.lfb.user.User;
 
+@PrimaryMapper
 @Mapper
 public interface UserMapper {
 
