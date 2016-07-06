@@ -24,7 +24,7 @@ public interface LibManMapper {
 	public VersionLog getVersionLog();
 	
 	@Results
-	@Select("SELECT * FROM question_answer LIMIT #{start}, #{size}")
+	@Select("SELECT * FROM question_answer ORDER BY published_at DESC, id ASC LIMIT #{start}, #{size}")
 	public List<Question> questions(@Param("start") int start, @Param("size") int size);
 	
 	@Select("SELECT count(1) FROM question_answer")

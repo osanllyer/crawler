@@ -34,8 +34,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		//暂时允许所有
 		
 		http.csrf().disable().httpBasic().and().authorizeRequests().anyRequest().permitAll();
-		
-		
+//		
 //		http.httpBasic()
 //		.and()
 //			.authorizeRequests()
@@ -46,19 +45,19 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 //			.useSecureCookie(false)
 //			.rememberMeParameter("remember-me")
 //			.tokenRepository(tokenRepository())
-//			.tokenValiditySeconds(10000);
+//			.tokenValiditySeconds(1000000);
 	}
 	
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
     	auth.jdbcAuthentication().dataSource(dataSource).passwordEncoder(passwordEncoder());
-    	auth.authenticationProvider(rememberMeAuthProvider());
+//    	auth.authenticationProvider(rememberMeAuthProvider());
     }
 	
-    public RememberMeAuthenticationProvider rememberMeAuthProvider(){
-    	RememberMeAuthenticationProvider provider = new RememberMeAuthenticationProvider("remember-me");
-    	return provider;
-    }
+//    public RememberMeAuthenticationProvider rememberMeAuthProvider(){
+//    	RememberMeAuthenticationProvider provider = new RememberMeAuthenticationProvider("remember-me");
+//    	return provider;
+//    }
     
     @Bean
 	public PersistentTokenRepository tokenRepository(){

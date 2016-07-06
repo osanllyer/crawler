@@ -168,6 +168,21 @@ angular
 		   }
 	   }
    })
-  }]);
+   .state('dashboard.navQuestionEditor', {
+	   //题库编辑
+	   url : '/navquestioneditor',
+	   templateUrl : 'views/libman/nav-questioneditor.html',
+	   controller : 'NavQuestionEditorCtrl',
+	   resolve : {
+		   loadMyFile:function($ocLazyLoad) {
+	           $ocLazyLoad.load({
+	               name:'sbAdminApp',
+	               files:['scripts/controllers/controller-navquestioneditor.js',
+	                      'scripts/controllers/controller-questioneditor.js']
+	           });
+		   }
+	   }
+  });
+}]);
 
     

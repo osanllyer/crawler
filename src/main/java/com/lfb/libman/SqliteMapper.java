@@ -21,6 +21,6 @@ public interface SqliteMapper {
 	@Delete("DELETE FROM question_answer")
 	public void delete();
 	
-	@Insert("INSERT INTO question_answer(id, type, chapter_id, question, a, b, c, d, answer, analysis, paper, published_at, real_seq, last_modified) VALUES (#{id}, #{type}, #{chapter_id}, #{question}, #{a}, #{b}, #{c}, #{d}, #{answer}, #{analysis}, #{paper}, #{published_at}, #{real_seq}, #{last_modified_sqlite})")
+	@Insert("INSERT INTO question_answer(id, type, chapter_id, question, a, b, c, d, answer, analysis, paper, published_at, real_seq, last_modified, law_id) VALUES (#{id}, #{type}, #{chapter_id}, #{question}, #{a}, #{b}, #{c}, #{d}, #{answer}, #{analysis}, #{paper}, #{published_at}, #{real_seq}, #{last_modified_sqlite}, #{law_id})")
 	public void insert(Question q);
 }

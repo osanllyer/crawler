@@ -98,7 +98,7 @@ public class LibManController {
 		
 		//逐条插入
 		for(Question q : qList){
-			SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-ddHH:mm:ss"); 
+			SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); 
 			Date d = new Date(q.getLast_modified().getTime());
 			q.setLast_modified_sqlite(df.format(d));
 			sqliteMapper.insert(q);
@@ -119,6 +119,10 @@ public class LibManController {
 			if((Long)result.get("count") == 0){
 				result.put("newestTime", Timestamp.valueOf(updateTime));
 			}
+			
+			int total = mapper.questionCount();
+			result.put("total", total);
+			
 			List<Map> questionStat = mapper.getQuestionStat();
 			result.put("qs", questionStat);
 			return new ResponseEntity(result, HttpStatus.OK);

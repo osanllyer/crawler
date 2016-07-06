@@ -47,7 +47,7 @@ angular.module('sbAdminApp')
 			    	 name : 'ID',
 			    	 field : 'id',
 			    	 enableCellEdit: false,
-			    	 width:"10%"
+			    	 width:"1%"
 			     },        
 			     {
 			    	 name : '问题',
@@ -55,49 +55,74 @@ angular.module('sbAdminApp')
 			    	 cellTooltip : function(row, col){
 			    		 return row.entity.question;
 			    	 },
-			    	 enableCellEdit: false
+			    	 enableCellEdit: true,
+//			    	 editableCellTemplate : '<textarea style="width:100%;height:100%;" ng-class="\'colt\' + col.index" ng-input="COL_FIELD" ng-model="COL_FIELD"></textarea>',
+			    	 width:'20%'
+			     },
+			     {
+			    	 name : 'A',
+			    	 width : '5%',
+			    	 field : 'a',
+			    	 enableCellEdit: true
+			     },
+			     {
+			    	 name : 'B',
+			    	 width : '5%',
+			    	 field : 'b',
+			    	 enableCellEdit: true
+			     },
+			     {
+			    	 name : 'C',
+			    	 width : '5%',
+			    	 field : 'c',
+			    	 enableCellEdit: true
+			     },
+			     {
+			    	 name : 'D',
+			    	 width : '5%',
+			    	 field : 'd',
+			    	 enableCellEdit: true
+			     },
+			     {
+			    	 name : '考点',
+			    	 width : '5%',
+			    	 field : 'point',
+			    	 enableCellEdit: true
+			     },			     
+			     {
+			    	 name : '答案',
+			    	 width : '5%',
+			    	 field : 'answer',
+			    	 enableCellEdit: true
+			     },
+			     {
+			    	 name : '解析',
+			    	 width : '10%',
+			    	 field : 'analysis',
+			    	 enableCellEdit: true
+			     },			     
+			     {
+			    	 name : '年份',
+			    	 width : '5%',
+			    	 field : 'published_at'
 			     },
 			     {
 			    	 name : '法律',
 			    	 width : '10%',
 			    	 field : 'law_id',
 			    	 editableCellTemplate: 'ui-grid/dropdownEditor',
-//			    	 cellFilter : 'mapGender',
-			    	 editDropdownOptionsArray : $scope.law
+			    	 editDropdownOptionsArray : $scope.law,
+			    	 cellFilter : 'mapLaw'
 			     },
 			     {
 			    	 name : '章节',
 			    	 width : '10%',
 			    	 field : 'chapter_id',
 			    	 editableCellTemplate: 'ui-grid/dropdownEditor',
-			    	 editDropdownRowEntityOptionsArrayPath : 'chapters'
-			     },
-			     {
-			    	 name : 'A',
-			    	 width : '10%',
-			    	 field : 'a',
-			    	 enableCellEdit: false
-			     },
-			     {
-			    	 name : 'B',
-			    	 width : '10%',
-			    	 field : 'b',
-			    	 enableCellEdit: false
-			     },
-			     {
-			    	 name : 'C',
-			    	 width : '10%',
-			    	 field : 'c',
-			    	 enableCellEdit: false
-			     },
-			     {
-			    	 name : 'D',
-			    	 width : '10%',
-			    	 field : 'd',
-			    	 enableCellEdit: false
-			     },
-			     
-			             ],
+			    	 editDropdownRowEntityOptionsArrayPath : 'chapters',
+			    	 cellFilter : 'mapChapter'
+			     }
+			],
 		    onRegisterApi: function( gridApi ) { 
 		        $scope.gridApi = gridApi;
 		        var cellTemplate = 'ui-grid/selectionRowHeader';   // you could use your own template here
@@ -184,7 +209,7 @@ angular.module('sbAdminApp')
 	
 		saveRow : function(row){
 			var defer = $q.defer();
-			$http.post('http://localhost:8080/lib/savequestion', row).success(
+			$http.post('/lib/savequestion', row).success(
 					function(data){
 						$log.debug(data);
 						defer.resolve(data);
@@ -198,7 +223,7 @@ angular.module('sbAdminApp')
 			var defer = $q.defer();
 			var start = (pageOpt.pageNumber - 1) * pageOpt.pageSize;
 			var size = pageOpt.pageSize;
-			$http.get('http://localhost:8080/lib/questions?start=' + start + '&size=' + size).success(
+			$http.get('/lib/questions?start=' + start + '&size=' + size).success(
 					function(data, status){
 						defer.resolve(data);
 					}
@@ -209,5 +234,26 @@ angular.module('sbAdminApp')
 			);
 			return defer.promise;
 		}
+	};
+})
+.filter('mapLaw', function(QuestionEditorService){
+	var law = QuestionEditorService.law;
+	return function(input){
+		for(var i in law){
+			if (law[i].id == input){
+				return law[i].value;
+			}
+		}
+	}
+})
+.filter('mapChapter', function(QuestionEditorService){
+	var lawChapter = QuestionEditorService.lawChapter;
+	return function(input){
+		for(var i in lawChapter)
+			for(var j in lawChapter[i]){
+				if(lawChapter[i][j].id == input){
+					return lawChapter[i][j].value;
+				}
+			}
 	};
 });

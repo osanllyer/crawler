@@ -90,7 +90,7 @@ public class UserController {
 	/**
 	 * 用户注册
 	 */
-	@RequestMapping(value="register", method=RequestMethod.POST)
+	@RequestMapping(value="register", method=RequestMethod.GET)
 	public Object register(@RequestParam("account") String account, @RequestParam("password") String password, HttpServletRequest request){
 		
 		RegisterResult result = new RegisterResult();

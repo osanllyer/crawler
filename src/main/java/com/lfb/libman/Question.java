@@ -96,6 +96,20 @@ public class Question {
 		this.last_modified_sqlite = last_modified_sqlite;
 	}	
 	
+	public Integer getLaw_id() {
+		return law_id;
+	}
+	public void setLaw_id(Integer law_id) {
+		this.law_id = law_id;
+	}	
+	
+	public String getPoint() {
+		return point;
+	}
+	public void setPoint(String point) {
+		this.point = point;
+	}	
+	
 	private Integer id;
 	private Integer type;
 	private String question;
@@ -109,6 +123,9 @@ public class Question {
 	private String published_at;
 	private Timestamp last_modified;
 	private String last_modified_sqlite;
+	private String point;
 	private Integer real_seq;
 	private Integer paper;
+	private Integer law_id;
+
 }
