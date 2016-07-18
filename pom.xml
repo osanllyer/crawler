@@ -11,6 +11,18 @@
     </parent>
   
   <dependencies>
+		<dependency>
+		    <groupId>org.springframework.boot</groupId>
+		    <artifactId>spring-boot-starter-test</artifactId>
+		    <version>1.3.2.RELEASE</version>
+		</dependency>  
+		<dependency>
+		    <groupId>sample</groupId>
+			<artifactId>com.sample</artifactId>
+			<version>1.0</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/taobao-sdk-java-auto_1455552377940-20160607.jar</systemPath>
+		</dependency>
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger-ui</artifactId>

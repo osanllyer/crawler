@@ -6,7 +6,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,7 +18,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.lfb.sms.SmsContainer;
 import com.lfb.user.dao.UserMapper;
+import com.taobao.api.ApiException;
+import com.taobao.api.DefaultTaobaoClient;
+import com.taobao.api.TaobaoClient;
+import com.taobao.api.request.AlibabaAliqinFcSmsNumSendRequest;
+import com.taobao.api.response.AlibabaAliqinFcSmsNumSendResponse;
 
 @RestController
 @RequestMapping(value = "/user", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -23,6 +32,9 @@ public class UserController {
 	
 	@Autowired
 	DataSource dataSource;
+	
+	@Autowired
+	SmsContainer smsContainer;
 	
 	@Autowired
 	UserMapper mapper;
@@ -33,20 +45,19 @@ public class UserController {
 	@Autowired
 	BCryptPasswordEncoder passwordEncoder;
 	
+	@Value(value = "sms.url")
+	String url;
+	
+	@Value("sms.appkey")
+	String appkey;
+	
+	@Value("sms.secret")
+	String secret;
+	
 	/**
 	 * 用户登陆
 	 */
-//	@RequestMapping(value="login")
-//	public Object login(
-//			@RequestParam("user") String user, 
-//			@RequestParam("password") String password, 
-//			@RequestParam("rememberMe")String rememberMe, 
-//			HttpServletRequest request){
-//        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(user, password);
-//        Authentication authenticatedUser = authenticationManager.authenticate(token);
-//        SecurityContextHolder.getContext().setAuthentication(authenticatedUser);
-//		return authenticatedUser;
-//	}
+	
 	
 	@RequestMapping(value="auth")
 	public Principal tokenLogin(Principal user){
@@ -85,6 +96,41 @@ public class UserController {
 	public Object updateInfo(@UserParam User user){
 		mapper.updateUser(user);
 		return null;
+	}
+	
+	/**
+	 * 验证验证码
+	 */
+	@RequestMapping(value="checkcode")
+	public Object checkValidateCode(@RequestParam("phone")String phone, @RequestParam("code")String code){
+		return new ResponseEntity<String>(String.valueOf(smsContainer.check(phone, code)), HttpStatus.OK);
+	}
+	
+	/**
+	 * 获取验证码
+	 * @return
+	 */
+	@RequestMapping(value="")
+	public ResponseEntity<String> getValidateCode(@RequestParam("recNum")String recNum){
+		
+		TaobaoClient client = new DefaultTaobaoClient(url, appkey, secret);
+		AlibabaAliqinFcSmsNumSendRequest req = new AlibabaAliqinFcSmsNumSendRequest();
+		req.setExtend( "" );
+		req.setSmsType( "normal" );
+		req.setSmsFreeSignName( "司考在线" );
+		String validateCode = smsContainer.genValidateCode();
+		req.setSmsParamString( "{number:'" + validateCode + "'}" );
+		req.setRecNum( recNum );
+		req.setSmsTemplateCode( "SMS_12480200" );
+		AlibabaAliqinFcSmsNumSendResponse rsp;
+		try {
+			rsp = client.execute(req);
+			smsContainer.save(recNum, validateCode);
+		} catch (ApiException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return new ResponseEntity<String>(HttpStatus.OK);
 	}
 	
 	/**

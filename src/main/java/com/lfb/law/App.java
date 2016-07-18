@@ -25,7 +25,6 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @SpringBootApplication
 @Configuration
 @ComponentScan("com.lfb")
-//@MapperScan("com.lfb")
 @EnableCaching
 @EnableSolrRepositories(basePackages = { "com.lfb.law" }, multicoreSupport = true)
 @EnableSwagger2
@@ -46,4 +45,5 @@ public class App {
 		String solrHost = env.getRequiredProperty(SOLR_HOST);
 		return new HttpSolrServer(solrHost);
 	}
+	
 }
