@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.lfb.sms.SmsContainer;
+import com.lfb.user.ValidateResult.CHECKRESULT;
 import com.lfb.user.dao.UserMapper;
 import com.taobao.api.ApiException;
 import com.taobao.api.DefaultTaobaoClient;
@@ -45,13 +46,13 @@ public class UserController {
 	@Autowired
 	BCryptPasswordEncoder passwordEncoder;
 	
-	@Value(value = "sms.url")
+	@Value("${sms.url}")
 	String url;
 	
-	@Value("sms.appkey")
+	@Value("${sms.appkey}")
 	String appkey;
 	
-	@Value("sms.secret")
+	@Value("${sms.secret}")
 	String secret;
 	
 	/**
@@ -101,18 +102,32 @@ public class UserController {
 	/**
 	 * 验证验证码
 	 */
-	@RequestMapping(value="checkcode")
-	public Object checkValidateCode(@RequestParam("phone")String phone, @RequestParam("code")String code){
-		return new ResponseEntity<String>(String.valueOf(smsContainer.check(phone, code)), HttpStatus.OK);
+	@RequestMapping(value="checkvalidatecode")
+	public ResponseEntity<ValidateResult> checkValidateCode(@RequestParam("phone")String phone, @RequestParam("code")String code){
+		ValidateResult res = new ValidateResult();
+		boolean valRes = smsContainer.check(phone, code);
+		if(valRes){
+			//验证正确
+			res.setResult(CHECKRESULT.correct);
+			User user = mapper.findUserByName(phone);
+			if(user != null){
+				res.setUsername(phone);
+				res.setPassword(user.getPlain_password());
+			}
+		}else{
+			//验证错误
+			res.setResult(CHECKRESULT.error);
+		}
+		return new ResponseEntity<ValidateResult>(res, HttpStatus.OK);
 	}
 	
 	/**
 	 * 获取验证码
 	 * @return
 	 */
-	@RequestMapping(value="")
-	public ResponseEntity<String> getValidateCode(@RequestParam("recNum")String recNum){
-		
+	@RequestMapping(value="getvalcode")
+	public ResponseEntity<String> getValidateCode(@RequestParam("recnum")String recNum){
+
 		TaobaoClient client = new DefaultTaobaoClient(url, appkey, secret);
 		AlibabaAliqinFcSmsNumSendRequest req = new AlibabaAliqinFcSmsNumSendRequest();
 		req.setExtend( "" );
@@ -150,6 +165,7 @@ public class UserController {
 			User user = new User();
 			user.setUsername(account);
 			user.setPassword(passwordEncoder.encode(password));
+			user.setPlain_password(password);
 			mapper.addUser(user);
 			//添加默认权限
 			Authority authority = new Authority();

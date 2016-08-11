@@ -13,6 +13,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 
+import com.lfb.download.MapperDownloadItem;
 import com.lfb.libman.LibManMapper;
 import com.lfb.libman.SqliteMapper;
 import com.lfb.user.dao.UserMapper;
@@ -58,6 +59,15 @@ public class DatasourceConf {
     	
     	return beanFactory;
     }
+    
+    @Bean
+    public MapperFactoryBean<MapperDownloadItem> downloadItemsMapperFactory(@Qualifier("primarySession")SqlSessionFactory ssf) throws Exception{
+    	MapperFactoryBean<MapperDownloadItem> beanFactory = new MapperFactoryBean<MapperDownloadItem>();
+    	beanFactory.setMapperInterface(MapperDownloadItem.class);
+    	beanFactory.setSqlSessionFactory(ssf);
+    	
+    	return beanFactory;
+    }    
     
     @Bean
     public MapperFactoryBean<UserMapper> userMapperFactory(@Qualifier("primarySession")SqlSessionFactory ssf) throws Exception{

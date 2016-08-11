@@ -41,7 +41,7 @@ public interface UserMapper {
 	 * 注册用户
 	 * @param user
 	 */
-	@Insert("INSERT INTO users(username, password) VALUES (#{username}, #{password})")
+	@Insert("INSERT INTO users(username, password, plain_password) VALUES (#{username}, #{password}, #{plain_password})")
 	void addUser(User user);
 	
 	/**

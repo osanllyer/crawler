@@ -55,6 +55,14 @@ public class User {
 	public void setAvatar(String avatar) {
 		this.avatar = avatar;
 	}
+
+	public boolean isEnabled() {
+		return enabled;
+	}
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
+
 	
 	private String username;
 	private String id;
@@ -63,13 +71,15 @@ public class User {
 	private int gender;
 	private String province;
 	private String password;
+	private String plain_password;
+	public String getPlain_password() {
+		return plain_password;
+	}
+	public void setPlain_password(String plain_password) {
+		this.plain_password = plain_password;
+	}
+
+
 	private String avatar;
 	private boolean enabled;
-	public boolean isEnabled() {
-		return enabled;
-	}
-	public void setEnabled(boolean enabled) {
-		this.enabled = enabled;
-	}
-	
 }

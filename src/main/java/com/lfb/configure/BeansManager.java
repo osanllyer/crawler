@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Configuration;
 
 import com.lfb.sms.DefaultSmsContainer;
 import com.lfb.sms.DefaultValidateCodeGenerator;
+import com.lfb.sms.SmsContainer;
 import com.lfb.sms.ValidateCodeGenerator;
 
 
@@ -12,12 +13,12 @@ import com.lfb.sms.ValidateCodeGenerator;
 public class BeansManager {
 
 	@Bean
-	public ValidateCodeGenerator defaultValidateCodeGenerator(){
+	public DefaultValidateCodeGenerator defaultValidateCodeGenerator(){
 		return new DefaultValidateCodeGenerator();
 	}
 	
 	@Bean
-	public DefaultSmsContainer defaultSmsContainer(){
+	public SmsContainer defaultSmsContainer(){
 		return new DefaultSmsContainer();
 	}
 	
