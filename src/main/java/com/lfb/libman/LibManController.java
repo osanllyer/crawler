@@ -31,6 +31,9 @@ public class LibManController {
 	LibManMapper mapper;
 	
 	@Autowired
+	StatMapper statMapper;
+	
+	@Autowired
 	SqliteMapper sqliteMapper;
 	
 	/**
@@ -136,6 +139,11 @@ public class LibManController {
 	public ResponseEntity appVersion(){
 		Map appVersionLog = mapper.appVersion();
 		return new ResponseEntity(appVersionLog, HttpStatus.OK);		
+	}
+	
+	@RequestMapping(value="exampaperlist", method=RequestMethod.GET)
+	public ResponseEntity getExampaperStat(@RequestParam("papers") List<Integer> papers){
+		return null;
 	}
 	
 }

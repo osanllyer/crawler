@@ -110,6 +110,19 @@ public class Question {
 		this.point = point;
 	}	
 	
+	public Integer getEmulate() {
+		return emulate;
+	}
+	public void setEmulate(Integer emulate) {
+		this.emulate = emulate;
+	}
+	public String getChapter_level() {
+		return chapter_level;
+	}
+	public void setChapter_level(String chapter_level) {
+		this.chapter_level = chapter_level;
+	}	
+	
 	private Integer id;
 	private Integer type;
 	private String question;
@@ -127,5 +140,7 @@ public class Question {
 	private Integer real_seq;
 	private Integer paper;
 	private Integer law_id;
+	private Integer emulate;
+	private String chapter_level;
 
 }

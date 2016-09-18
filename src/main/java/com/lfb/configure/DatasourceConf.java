@@ -14,8 +14,10 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 
 import com.lfb.download.MapperDownloadItem;
+import com.lfb.law.sync.dao.FavSyncMapper;
 import com.lfb.libman.LibManMapper;
 import com.lfb.libman.SqliteMapper;
+import com.lfb.libman.StatMapper;
 import com.lfb.user.dao.UserMapper;
 
 
@@ -79,6 +81,15 @@ public class DatasourceConf {
     }
     
     @Bean
+    public MapperFactoryBean<StatMapper> statMapperFactory(@Qualifier("primarySession")SqlSessionFactory ssf) throws Exception{
+    	MapperFactoryBean<StatMapper> beanFactory = new MapperFactoryBean<StatMapper>();
+    	beanFactory.setMapperInterface(StatMapper.class);
+    	beanFactory.setSqlSessionFactory(ssf);
+    	
+    	return beanFactory;
+    }    
+    
+    @Bean
     public MapperFactoryBean<SqliteMapper> sqliteMapperFactory(@Qualifier("secondarySession")SqlSessionFactory ssf) throws Exception{
     	
     	MapperFactoryBean<SqliteMapper> beanFactory = new MapperFactoryBean<SqliteMapper>();
@@ -88,39 +99,20 @@ public class DatasourceConf {
     	return beanFactory;
     }
     
-//    @Bean
-//    public MapperScannerConfigurer primaryMapperScannerConfigurer() throws Exception {
-//        MapperScannerConfigurer configurer = new MapperScannerConfigurer();
-//        configurer.setBasePackage("com.lfb");
-//        configurer.setAnnotationClass(PrimaryMapper.class);
-//        configurer.setSqlSessionFactory(primarySqlSessionFactory());
-//        return configurer;
-//    }
-//
-//    @Bean
-//    public MapperScannerConfigurer secondaryMapperScannerConfigurer() throws Exception {
-//        MapperScannerConfigurer configurer = new MapperScannerConfigurer();
-//        configurer.setBasePackage("com.lfb");
-//        configurer.setAnnotationClass(SecondaryMapper.class);
-//        configurer.setSqlSessionFactory(secondarySqlSessionFactory());
-//        return configurer;
-//    }
+    /**
+     * 
+     * @param ssf
+     * @return
+     * @throws Exception
+     */
+    @Bean
+    public MapperFactoryBean<FavSyncMapper> favSyncMapperFactory(@Qualifier("primarySession")SqlSessionFactory ssf) throws Exception{
+    	
+    	MapperFactoryBean<FavSyncMapper> beanFactory = new MapperFactoryBean<FavSyncMapper>();
+    	beanFactory.setMapperInterface(FavSyncMapper.class);
+    	beanFactory.setSqlSessionFactory(ssf);
+    	
+    	return beanFactory;
+    }    
     
-//    @Bean
-//    public UserMapper userMapper(@Qualifier("primarySession") SqlSessionFactory ssf) throws Exception {
-//      SqlSessionTemplate sessionTemplate = new SqlSessionTemplate(ssf);
-//      return sessionTemplate.getMapper(UserMapper.class);
-//    }
-//    
-//    @Bean
-//    public LibManMapper libManMapper(@Qualifier("primarySession")SqlSessionFactory ssf) throws Exception {
-//        SqlSessionTemplate sessionTemplate = new SqlSessionTemplate(ssf);
-//        return sessionTemplate.getMapper(LibManMapper.class);
-//    }
-//    
-//    @Bean
-//    public SqliteMapper sqliteMapper(@Qualifier("secondarySession")SqlSessionFactory ssf) throws Exception {
-//        SqlSessionTemplate sessionTemplate = new SqlSessionTemplate(ssf);
-//        return sessionTemplate.getMapper(SqliteMapper.class);
-//    }    
 }
