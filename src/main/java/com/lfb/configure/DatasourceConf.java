@@ -14,7 +14,12 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 
 import com.lfb.download.MapperDownloadItem;
+import com.lfb.law.sync.dao.ErrorProgressSyncMapper;
+import com.lfb.law.sync.dao.ErrorsSyncMapper;
+import com.lfb.law.sync.dao.FavProgressSyncMapper;
 import com.lfb.law.sync.dao.FavSyncMapper;
+import com.lfb.law.sync.dao.PracticeProgressSyncMapper;
+import com.lfb.law.sync.dao.RealProgressSyncMapper;
 import com.lfb.libman.LibManMapper;
 import com.lfb.libman.SqliteMapper;
 import com.lfb.libman.StatMapper;
@@ -114,5 +119,78 @@ public class DatasourceConf {
     	
     	return beanFactory;
     }    
+    
+    /**
+     * 
+     * @param ssf
+     * @return
+     * @throws Exception
+     */
+    @Bean
+    public MapperFactoryBean<FavProgressSyncMapper> favProgressSyncMapperFactory(@Qualifier("primarySession")SqlSessionFactory ssf) throws Exception{
+    	
+    	MapperFactoryBean<FavProgressSyncMapper> beanFactory = new MapperFactoryBean<FavProgressSyncMapper>();
+    	beanFactory.setMapperInterface(FavProgressSyncMapper.class);
+    	beanFactory.setSqlSessionFactory(ssf);
+    	
+    	return beanFactory;
+    }
+    /**
+     * 
+     * @param ssf
+     * @return
+     * @throws Exception
+     */
+    @Bean
+    public MapperFactoryBean<PracticeProgressSyncMapper> practiceProgressSyncMapperFactory(@Qualifier("primarySession")SqlSessionFactory ssf) throws Exception{
+    	
+    	MapperFactoryBean<PracticeProgressSyncMapper> beanFactory = new MapperFactoryBean<PracticeProgressSyncMapper>();
+    	beanFactory.setMapperInterface(PracticeProgressSyncMapper.class);
+    	beanFactory.setSqlSessionFactory(ssf);
+    	
+    	return beanFactory;
+    }     
+    
+    /**
+     * 
+     * @param ssf
+     * @return
+     * @throws Exception
+     */
+    @Bean
+    public MapperFactoryBean<ErrorProgressSyncMapper> errorProgressSyncMapperFactory(@Qualifier("primarySession")SqlSessionFactory ssf) throws Exception{
+    	
+    	MapperFactoryBean<ErrorProgressSyncMapper> beanFactory = new MapperFactoryBean<ErrorProgressSyncMapper>();
+    	beanFactory.setMapperInterface(ErrorProgressSyncMapper.class);
+    	beanFactory.setSqlSessionFactory(ssf);
+    	
+    	return beanFactory;
+    }   
+    
+    @Bean
+    public MapperFactoryBean<ErrorsSyncMapper> errorsSyncMapperFactory(@Qualifier("primarySession")SqlSessionFactory ssf) throws Exception{
+    	
+    	MapperFactoryBean<ErrorsSyncMapper> beanFactory = new MapperFactoryBean<ErrorsSyncMapper>();
+    	beanFactory.setMapperInterface(ErrorsSyncMapper.class);
+    	beanFactory.setSqlSessionFactory(ssf);
+    	
+    	return beanFactory;
+    }       
+    
+    /**
+     * 
+     * @param ssf
+     * @return
+     * @throws Exception
+     */
+    @Bean
+    public MapperFactoryBean<RealProgressSyncMapper> realProgressSyncMapperFactory(@Qualifier("primarySession")SqlSessionFactory ssf) throws Exception{
+    	
+    	MapperFactoryBean<RealProgressSyncMapper> beanFactory = new MapperFactoryBean<RealProgressSyncMapper>();
+    	beanFactory.setMapperInterface(RealProgressSyncMapper.class);
+    	beanFactory.setSqlSessionFactory(ssf);
+    	
+    	return beanFactory;
+    }         
     
 }

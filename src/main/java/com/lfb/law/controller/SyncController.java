@@ -9,9 +9,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.lfb.law.controller.model.ErrorProgressSyncData;
+import com.lfb.law.controller.model.ErrorSyncData;
+import com.lfb.law.controller.model.FavProgressSyncData;
 import com.lfb.law.controller.model.FavSyncData;
+import com.lfb.law.controller.model.PracticeProgressSyncItem;
+import com.lfb.law.controller.model.RealProgressSyncData;
 import com.lfb.law.controller.model.SyncData.SyncType;
-import com.lfb.law.sync.FavSyncProcessor;
+import com.lfb.law.controller.model.SyncDataAdapter;
+import com.lfb.law.sync.CommonSyncProcessor;
 
 /**
  * 管理用户的数据同步
@@ -23,7 +29,7 @@ import com.lfb.law.sync.FavSyncProcessor;
 public class SyncController {
 
 		@Autowired
-		FavSyncProcessor favSyncProcessor;
+		CommonSyncProcessor commonSyncProcessor;
 	
 		@RequestMapping(method=RequestMethod.GET)
 		public void syncFromServer(){
@@ -41,9 +47,24 @@ public class SyncController {
 				switch(type){
 				case FAV:
 					//是收藏记录
-					favSyncProcessor.process(FavSyncData.valueOf(data));
+					commonSyncProcessor.process(SyncDataAdapter.<FavSyncData>valueOf(data, FavSyncData.class));
 					break;
-				case FAVPROGRESS:
+				case FAV_PROGRESS:
+					commonSyncProcessor.process(SyncDataAdapter.<FavProgressSyncData>valueOf(data, FavProgressSyncData.class));
+					break;
+				case ERRORS:
+					commonSyncProcessor.process(SyncDataAdapter.<ErrorSyncData>valueOf(data, ErrorSyncData.class));
+					break;
+				case ERROR_PROGRESS:
+					commonSyncProcessor.process(SyncDataAdapter.<ErrorProgressSyncData>valueOf(data, ErrorProgressSyncData.class));
+					break;
+				case PRACTICE_PROGRESS:
+					commonSyncProcessor.process(SyncDataAdapter.<PracticeProgressSyncItem>valueOf(data, PracticeProgressSyncItem.class));
+					break;
+				case REAL_PROGRESS:
+					commonSyncProcessor.process(SyncDataAdapter.<RealProgressSyncData>valueOf(data, RealProgressSyncData.class));
+					break;
+				default:
 					break;
 				}
 				

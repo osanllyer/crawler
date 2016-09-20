@@ -7,5 +7,6 @@ package com.lfb.law.controller.model;
  * @author osanllyer
  *
  */
-public class FavProgressSyncData extends FavSyncData {
+public class ErrorSyncData extends FavSyncData{
+	
 }

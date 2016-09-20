@@ -17,17 +17,13 @@ public class FavSyncProcessor implements SyncProcessor {
 	@Override
 	public void process(SyncDataAdapter data) {
 		
-		if (!(data instanceof FavSyncData)){
-			return;
-		}
-		FavSyncData favdata = (FavSyncData)data;
-		SyncAction sa = favdata.getAction();
+		SyncAction sa = data.getAction();
 		switch(sa){
 		case ADD:
-			mapper.add(favdata);
+			mapper.add(data);
 			break;
 		case DELETE:
-			mapper.delete(favdata);
+			mapper.delete(data);
 			break;
 		default:
 			break;

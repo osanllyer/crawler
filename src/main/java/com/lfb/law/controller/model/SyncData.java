@@ -9,7 +9,11 @@ public interface SyncData {
 	
 	public static enum SyncType{
 		FAV("FAV", 1),
-		FAVPROGRESS("FAVPROGRESS", 2);
+		FAV_PROGRESS("FAVPROGRESS", 2),
+		REAL_PROGRESS("REALPROGRESS",3),
+		ERROR_PROGRESS("ERROR_PROGRESS", 4),
+		PRACTICE_PROGRESS("PRACTICEPROGRESS", 5),
+		ERRORS("ERRORS", 6);
 		
 		private String type;
 		private int idx;
