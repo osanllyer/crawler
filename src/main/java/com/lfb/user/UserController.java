@@ -127,26 +127,26 @@ public class UserController {
 	 */
 	@RequestMapping(value="getvalcode")
 	public ResponseEntity<String> getValidateCode(@RequestParam("recnum")String recNum){
-		smsContainer.save(recNum, "1234");
-		return new ResponseEntity<String>(HttpStatus.OK);
-//		TaobaoClient client = new DefaultTaobaoClient(url, appkey, secret);
-//		AlibabaAliqinFcSmsNumSendRequest req = new AlibabaAliqinFcSmsNumSendRequest();
-//		req.setExtend( "" );
-//		req.setSmsType( "normal" );
-//		req.setSmsFreeSignName( "司考在线" );
-//		String validateCode = smsContainer.genValidateCode();
-//		req.setSmsParamString( "{number:'" + validateCode + "'}" );
-//		req.setRecNum( recNum );
-//		req.setSmsTemplateCode( "SMS_12480200" );
-//		AlibabaAliqinFcSmsNumSendResponse rsp;
-//		try {
-//			rsp = client.execute(req);
-//			smsContainer.save(recNum, validateCode);
-//		} catch (ApiException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
+//		smsContainer.save(recNum, "1234");
 //		return new ResponseEntity<String>(HttpStatus.OK);
+		TaobaoClient client = new DefaultTaobaoClient(url, appkey, secret);
+		AlibabaAliqinFcSmsNumSendRequest req = new AlibabaAliqinFcSmsNumSendRequest();
+		req.setExtend( "" );
+		req.setSmsType( "normal" );
+		req.setSmsFreeSignName( "司考在线" );
+		String validateCode = smsContainer.genValidateCode();
+		req.setSmsParamString( "{number:'" + validateCode + "'}" );
+		req.setRecNum( recNum );
+		req.setSmsTemplateCode( "SMS_12480200" );
+		AlibabaAliqinFcSmsNumSendResponse rsp;
+		try {
+			rsp = client.execute(req);
+			smsContainer.save(recNum, validateCode);
+		} catch (ApiException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return new ResponseEntity<String>(HttpStatus.OK);
 	}
 	
 	/**
