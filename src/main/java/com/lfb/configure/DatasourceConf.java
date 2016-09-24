@@ -14,6 +14,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 
 import com.lfb.download.MapperDownloadItem;
+import com.lfb.law.express.ExpressMapper;
 import com.lfb.law.sync.dao.ErrorProgressSyncMapper;
 import com.lfb.law.sync.dao.ErrorsSyncMapper;
 import com.lfb.law.sync.dao.FavProgressSyncMapper;
@@ -191,6 +192,22 @@ public class DatasourceConf {
     	beanFactory.setSqlSessionFactory(ssf);
     	
     	return beanFactory;
-    }         
+    }  
+    
+    /**
+     * 
+     * @param ssf
+     * @return
+     * @throws Exception
+     */
+    @Bean
+    public MapperFactoryBean<ExpressMapper> expressMapperFactory(@Qualifier("primarySession")SqlSessionFactory ssf) throws Exception{
+    	
+    	MapperFactoryBean<ExpressMapper> beanFactory = new MapperFactoryBean<ExpressMapper>();
+    	beanFactory.setMapperInterface(ExpressMapper.class);
+    	beanFactory.setSqlSessionFactory(ssf);
+    	
+    	return beanFactory;
+    }    
     
 }
