@@ -8,4 +8,5 @@ package com.lfb.law.controller.model;
  *
  */
 public class FavProgressSyncData extends FavSyncData {
+
 }

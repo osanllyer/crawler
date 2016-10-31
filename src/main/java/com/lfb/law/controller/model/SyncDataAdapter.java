@@ -79,13 +79,15 @@ public class SyncDataAdapter<T> implements SyncData{
 		Map itemMap = (Map)mapData.get("item");
 		U uItem;
 		U item = null;
-		try {
-			uItem = clazz.newInstance();
-			item = (U) uItem.valueOf(itemMap);
-		} catch (InstantiationException e) {
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
+		if(!itemMap.isEmpty()){
+			try {
+				uItem = clazz.newInstance();
+				item = (U) uItem.valueOf(itemMap);
+			} catch (InstantiationException e) {
+				e.printStackTrace();
+			} catch (IllegalAccessException e) {
+				e.printStackTrace();
+			}
 		}
 		data.setAction(SyncAction.valueOf(action));
 		data.setAdd_at(add_at);

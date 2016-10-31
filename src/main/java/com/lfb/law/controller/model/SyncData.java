@@ -9,11 +9,13 @@ public interface SyncData {
 	
 	public static enum SyncType{
 		FAV("FAV", 1),
-		FAV_PROGRESS("FAVPROGRESS", 2),
+		FAV_PROGRESS("FAV_PROGRESS", 2),
 		REAL_PROGRESS("REALPROGRESS",3),
 		ERROR_PROGRESS("ERROR_PROGRESS", 4),
-		PRACTICE_PROGRESS("PRACTICEPROGRESS", 5),
-		ERRORS("ERRORS", 6);
+		PRACTICE_PROGRESS("PRACTICE_PROGRESS", 5),
+		ERRORS("ERRORS", 6),
+		PRACTICE_STAT("PRACTICE_STAT", 7),
+		EVENT_SOURCE("EVENT_SOURCE", 8);
 		
 		private String type;
 		private int idx;
@@ -34,7 +36,8 @@ public interface SyncData {
 	
 	public static enum SyncAction{
 		ADD("ADD", 1),
-		DELETE("DELETE", 2);
+		DELETE("DELETE", 2),
+		GET("GET", 3);
 		
 		private String action;
 		private Integer idx;

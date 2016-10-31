@@ -19,7 +19,9 @@ import com.lfb.law.sync.dao.ErrorProgressSyncMapper;
 import com.lfb.law.sync.dao.ErrorsSyncMapper;
 import com.lfb.law.sync.dao.FavProgressSyncMapper;
 import com.lfb.law.sync.dao.FavSyncMapper;
+import com.lfb.law.sync.dao.PracticeEventSourceSyncMapper;
 import com.lfb.law.sync.dao.PracticeProgressSyncMapper;
+import com.lfb.law.sync.dao.PracticeStatSyncMapper;
 import com.lfb.law.sync.dao.RealProgressSyncMapper;
 import com.lfb.libman.LibManMapper;
 import com.lfb.libman.SqliteMapper;
@@ -208,6 +210,26 @@ public class DatasourceConf {
     	beanFactory.setSqlSessionFactory(ssf);
     	
     	return beanFactory;
-    }    
+    }   
+    
+    @Bean
+    public MapperFactoryBean<PracticeStatSyncMapper> practiceStatSyncMapperFactory(@Qualifier("primarySession")SqlSessionFactory ssf) throws Exception{
+    	
+    	MapperFactoryBean<PracticeStatSyncMapper> beanFactory = new MapperFactoryBean<PracticeStatSyncMapper>();
+    	beanFactory.setMapperInterface(PracticeStatSyncMapper.class);
+    	beanFactory.setSqlSessionFactory(ssf);
+    	
+    	return beanFactory;
+    }  
+    
+    @Bean
+    public MapperFactoryBean<PracticeEventSourceSyncMapper> praceticeEventSourceSyncMapperFactory(@Qualifier("primarySession")SqlSessionFactory ssf) throws Exception{
+    	
+    	MapperFactoryBean<PracticeEventSourceSyncMapper> beanFactory = new MapperFactoryBean<PracticeEventSourceSyncMapper>();
+    	beanFactory.setMapperInterface(PracticeEventSourceSyncMapper.class);
+    	beanFactory.setSqlSessionFactory(ssf);
+    	
+    	return beanFactory;
+    }      
     
 }

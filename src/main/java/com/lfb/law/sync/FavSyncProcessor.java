@@ -1,9 +1,12 @@
 package com.lfb.law.sync;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.lfb.law.controller.model.FavSyncData;
+import com.google.common.collect.Lists;
+import com.lfb.law.controller.model.FavProgressSyncData;
 import com.lfb.law.controller.model.SyncData.SyncAction;
 import com.lfb.law.controller.model.SyncDataAdapter;
 import com.lfb.law.sync.dao.FavSyncMapper;
@@ -15,7 +18,9 @@ public class FavSyncProcessor implements SyncProcessor {
 	FavSyncMapper mapper;
 	
 	@Override
-	public void process(SyncDataAdapter data) {
+	public List<FavProgressSyncData> process(SyncDataAdapter data) {
+		
+		List<FavProgressSyncData> list = Lists.newArrayList();
 		
 		SyncAction sa = data.getAction();
 		switch(sa){
@@ -25,10 +30,13 @@ public class FavSyncProcessor implements SyncProcessor {
 		case DELETE:
 			mapper.delete(data);
 			break;
+		case GET:
+			list = mapper.get(data);
 		default:
 			break;
 		}
 		
+		return list;
 	}
 
 }

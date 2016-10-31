@@ -30,10 +30,19 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	private HttpAuthenticationEntryPoint authenticationEntryPoint;
 	
 	@Override
-	protected void configure(HttpSecurity http) throws Exception{
-		//暂时允许所有
+	protected void configure(HttpSecurity http) throws Exception{		
+		http.csrf().disable()
+//		http
+		.httpBasic()
+		.and()
+			.authorizeRequests()
+			.antMatchers("/user/auth").permitAll()
+			.antMatchers("/user/login").permitAll()
+			.antMatchers("/user/regiester").permitAll()
+			.antMatchers("/swagger-ui.html/**").permitAll()
+			.anyRequest().authenticated();
 		
-		http.csrf().disable().httpBasic().and().authorizeRequests().anyRequest().permitAll();
+		http.logout().logoutUrl("/user/logout");
 //		
 //		http.httpBasic()
 //		.and()

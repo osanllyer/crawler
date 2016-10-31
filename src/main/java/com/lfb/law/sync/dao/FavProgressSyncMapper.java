@@ -1,8 +1,13 @@
 package com.lfb.law.sync.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Results;
+import org.apache.ibatis.annotations.Select;
 
+import com.lfb.law.controller.model.FavProgressSyncData;
 import com.lfb.law.controller.model.SyncDataAdapter;
 
 /**
@@ -18,4 +23,7 @@ public interface FavProgressSyncMapper extends SyncMapper {
 	@Delete("DELETE from favorite_progress where qid=#{item.qid} and user=#{userid}")
 	public void delete(SyncDataAdapter data);
 	
+	@Results
+	@Select("SELECT qid FROM favorite_progress WHERE user=#{userid}")
+	public List<FavProgressSyncData> get(SyncDataAdapter data);
 }

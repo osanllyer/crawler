@@ -14,6 +14,7 @@ import com.lfb.sms.SmsContainer;
 @Configuration
 public class BeansManager {
 
+	
 	@Bean
 	public DefaultValidateCodeGenerator defaultValidateCodeGenerator(){
 		return new DefaultValidateCodeGenerator();

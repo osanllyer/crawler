@@ -82,11 +82,11 @@ public class LawCrawler {
 		this.content = content;
 	}
 
-//	public static void main(String[] args){
-//		
-//		OOSpider.create(Site.me().setSleepTime(1000),  new DBPageModalPipeline(), LawCrawler.class)
-//			.setScheduler(new FileCacheQueueScheduler("./monitor/").setDuplicateRemover(new HashSetDuplicateRemover()))
-//			.addUrl("http://www.chinalawedu.com/falvfagui/21752/").thread(1).run();
-//	}
+	public static void main(String[] args){
+		
+		OOSpider.create(Site.me().setSleepTime(1000),  new DBPageModalPipeline(), LawCrawler.class)
+			.setScheduler(new FileCacheQueueScheduler("./monitor/").setDuplicateRemover(new HashSetDuplicateRemover()))
+			.addUrl("http://www.chinalawedu.com/falvfagui/21752/").thread(1).run();
+	}
 	
 }
