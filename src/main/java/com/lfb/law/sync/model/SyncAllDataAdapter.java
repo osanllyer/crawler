@@ -78,13 +78,13 @@ public class SyncAllDataAdapter<T> implements SyncAllData {
 		SyncAllDataAdapter<U> data = new SyncAllDataAdapter<U>();
 		data.setType(type);
 		data.setUserid(userId);
-		Map<String, List<U>> actionMap = (Map<String, List<U>>)map.get("item");
+		Map<String, List<Map>> actionMap = (Map<String, List<Map>>)map.get("item");
 		
 		if(actionMap == null){
 			return data;
 		}
 		
-		List<Map> addList = (List<Map>) actionMap.get("add");
+		List<Map> addList = (List<Map>) (actionMap.get("add"));
 		
 		if(addList == null){
 			return data;
@@ -103,7 +103,7 @@ public class SyncAllDataAdapter<T> implements SyncAllData {
 			}
 		}
 		
-		List<Map> deleteList = (List<Map>) actionMap.get("delete");
+		List<Map> deleteList = (List<Map>) (actionMap.get("delete"));
 		
 		for(Map m : deleteList){
 			U uItem;
@@ -118,7 +118,7 @@ public class SyncAllDataAdapter<T> implements SyncAllData {
 			}
 		}
 		
-		List<Map> updateList = (List<Map>) actionMap.get("update");
+		List<Map> updateList = (List<Map>) (actionMap.get("update"));
 		
 		for(Map m : updateList){
 			U uItem;
