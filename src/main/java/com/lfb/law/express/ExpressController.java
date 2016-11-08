@@ -35,10 +35,16 @@ public class ExpressController {
 	 * 获取单条
 	 */
 	@RequestMapping(value = "/id", method = RequestMethod.GET)
-	public ResponseEntity getExpress(@RequestParam("id")int id){
+	public ResponseEntity<Express> getExpress(@RequestParam("id")int id){
 	
 		Express express = expressMapper.getExpress(id);
-		return new ResponseEntity(express, HttpStatus.OK);
+		return new ResponseEntity<Express>(express, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value="/new", method=RequestMethod.GET)
+	public ResponseEntity<Integer> checkNew(@RequestParam("id")Integer id){
+		Integer count = expressMapper.checkNew(id);
+		return new ResponseEntity<Integer>(count, HttpStatus.OK);
 	}
 	
 }

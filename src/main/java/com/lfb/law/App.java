@@ -2,6 +2,7 @@ package com.lfb.law;
 
 import org.apache.solr.client.solrj.SolrServer;
 import org.apache.solr.client.solrj.impl.HttpSolrServer;
+import org.mybatis.spring.annotation.MapperScan;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,11 +18,11 @@ import org.springframework.data.solr.repository.config.EnableSolrRepositories;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @SpringBootApplication
-@Configuration
 @ComponentScan("com.lfb")
 @EnableCaching
 @EnableSolrRepositories(basePackages = { "com.lfb.law" }, multicoreSupport = true)
 @EnableSwagger2
+@MapperScan("com.lfb")
 public class App {
 
 	final Logger logger = LoggerFactory.getLogger(App.class);

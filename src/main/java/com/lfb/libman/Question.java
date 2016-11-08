@@ -122,6 +122,13 @@ public class Question {
 	public void setChapter_level(String chapter_level) {
 		this.chapter_level = chapter_level;
 	}	
+
+	public String getPicture() {
+		return picture;
+	}
+	public void setPicture(String picture) {
+		this.picture = picture;
+	}	
 	
 	private Integer id;
 	private Integer type;
@@ -142,5 +149,6 @@ public class Question {
 	private Integer law_id;
 	private Integer emulate;
 	private String chapter_level;
+	private String picture;
 
 }

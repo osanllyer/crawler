@@ -14,5 +14,9 @@ public interface ExpressMapper {
 	
 	@Select("SELECT * FROM express WHERE id = #{id}")
 	public Express getExpress(@Param("id")int id);
+
+	
+	@Select("SELECT count(1) FROM express WHERE id > #{id}")
+	public Integer checkNew(@Param("id")Integer id);
 	
 }

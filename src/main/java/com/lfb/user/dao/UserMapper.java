@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 import org.apache.ibatis.annotations.UpdateProvider;
 
 import com.lfb.configure.PrimaryMapper;
@@ -57,4 +58,10 @@ public interface UserMapper {
 	 */
 	@Insert("INSERT INTO authorities VALUES (#{username}, #{authority})")
 	void saveAuthority(Authority authority);
+
+	/**
+	 * 重置密码
+	*/
+	@Update("UPDATE users SET password = #{password}, plain_password = #{plain_password} WHERE username = #{phone} LIMIT 1")
+	void updatePasswd(@Param("phone")String phone, @Param("password")String password, @Param("plain_password")String plain_password);
 }

@@ -38,8 +38,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 			.authorizeRequests()
 			.antMatchers("/user/auth").permitAll()
 			.antMatchers("/user/login").permitAll()
-			.antMatchers("/user/regiester").permitAll()
+			.antMatchers("/user/register/**").permitAll()
+			.antMatchers("/user/getvalcode/**").permitAll()
+			.antMatchers("/user/checkvalidatecode/**").permitAll()
 			.antMatchers("/swagger-ui.html/**").permitAll()
+			.antMatchers("/user/resetpasswd/**").permitAll()
 			.anyRequest().authenticated();
 		
 		http.logout().logoutUrl("/user/logout");

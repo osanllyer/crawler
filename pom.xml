@@ -5,6 +5,10 @@
 	<artifactId>crawler</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 
+	<properties>
+		<start-class>com.lfb.law.App</start-class>
+	</properties>
+
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>

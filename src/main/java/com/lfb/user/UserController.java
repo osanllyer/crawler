@@ -204,4 +204,13 @@ public class UserController {
 		return Boolean.valueOf(duplicated != null);
 	}
 	
+	/**
+	 * 更新用户密码
+	 * 
+	 * */
+	@RequestMapping(value="resetpasswd", method=RequestMethod.GET)
+	public ResponseEntity<Boolean> resetPasswd(@RequestParam("phone")String phone, @RequestParam("passwd") String passwd){
+		mapper.updatePasswd(phone, passwordEncoder.encode(passwd), passwd);
+		return new ResponseEntity<Boolean>(Boolean.TRUE, HttpStatus.OK);
+	}
 }
