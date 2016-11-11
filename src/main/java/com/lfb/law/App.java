@@ -22,7 +22,6 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableCaching
 @EnableSolrRepositories(basePackages = { "com.lfb.law" }, multicoreSupport = true)
 @EnableSwagger2
-@MapperScan("com.lfb")
 public class App {
 
 	final Logger logger = LoggerFactory.getLogger(App.class);

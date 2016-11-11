@@ -2,6 +2,7 @@ package com.lfb.law.sync.dao;
 
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Mapper;
 
 import com.lfb.law.controller.model.SyncDataAdapter;
 
@@ -10,6 +11,7 @@ import com.lfb.law.controller.model.SyncDataAdapter;
  * @author osanllyer
  *
  */
+@Mapper
 public interface RealProgressSyncMapper extends SyncMapper {
 
 	@Insert("REPLACE INTO real_progress (userid, year, exampaper, qid, add_at) VALUES(#{userid}, #{item.year}, #{item.exampaper}, #{item.qid}, #{add_at})")

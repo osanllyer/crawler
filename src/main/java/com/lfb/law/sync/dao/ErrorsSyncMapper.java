@@ -2,9 +2,11 @@ package com.lfb.law.sync.dao;
 
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Mapper;
 
 import com.lfb.law.controller.model.SyncDataAdapter;
 
+@Mapper
 public interface ErrorsSyncMapper extends SyncMapper{
 	
 	@Insert("REPLACE INTO errors (user, qid, add_at) VALUES(#{userid}, #{item.qid}, #{add_at})")

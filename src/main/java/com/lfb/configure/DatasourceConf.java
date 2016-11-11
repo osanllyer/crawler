@@ -2,10 +2,8 @@ package com.lfb.configure;
 
 import javax.sql.DataSource;
 
-import org.apache.ibatis.session.SqlSessionFactory;
-import org.mybatis.spring.SqlSessionFactoryBean;
-import org.mybatis.spring.mapper.MapperFactoryBean;
-import org.springframework.beans.factory.annotation.Qualifier;
+import org.apache.ibatis.annotations.Mapper;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceBuilder;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -13,24 +11,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 
-import com.lfb.download.MapperDownloadItem;
-import com.lfb.law.express.ExpressMapper;
-import com.lfb.law.sync.dao.ErrorProgressSyncMapper;
-import com.lfb.law.sync.dao.ErrorsSyncMapper;
-import com.lfb.law.sync.dao.FavProgressSyncMapper;
-import com.lfb.law.sync.dao.FavSyncMapper;
-import com.lfb.law.sync.dao.PracticeEventSourceSyncMapper;
-import com.lfb.law.sync.dao.PracticeProgressSyncMapper;
-import com.lfb.law.sync.dao.PracticeStatSyncMapper;
-import com.lfb.law.sync.dao.RealProgressSyncMapper;
-import com.lfb.libman.LibManMapper;
-import com.lfb.libman.SqliteMapper;
-import com.lfb.libman.StatMapper;
-import com.lfb.user.dao.UserMapper;
-
 
 @Configuration
 @EnableConfigurationProperties
+@MapperScan(value="com.lfb", annotationClass=Mapper.class)
 public class DatasourceConf {
 	
 	@Bean(name="mysql")

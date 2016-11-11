@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
@@ -17,6 +18,7 @@ import com.lfb.law.sync.model.PracticeProgressSyncAllItem;
  * @author osanllyer
  *
  */
+@Mapper
 public interface PracticeProgressSyncMapper extends SyncMapper {
 
 	@Insert("REPLACE INTO practice_progress (userid, chapter_id, qid, law_id, type, add_at) VALUES(#{userid}, #{item.chapter_id}, #{item.qid}, #{item.law_id}, #{item.type}, #{add_at})")

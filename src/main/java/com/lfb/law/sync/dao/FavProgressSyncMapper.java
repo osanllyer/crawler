@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
 
@@ -15,6 +16,7 @@ import com.lfb.law.controller.model.SyncDataAdapter;
  * @author osanllyer
  *
  */
+@Mapper
 public interface FavProgressSyncMapper extends SyncMapper {
 	
 	@Insert("REPLACE INTO favorite_progress (user, qid, add_at) VALUES(#{userid}, #{item.qid}, #{add_at})")
