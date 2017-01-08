@@ -19,6 +19,7 @@ import com.lfb.law.controller.model.PracticeProgressSyncItem;
 import com.lfb.law.controller.model.RealProgressSyncData;
 import com.lfb.law.controller.model.SyncData.SyncType;
 import com.lfb.law.controller.model.SyncDataAdapter;
+import com.lfb.law.sync.model.BookmarkSyncAllItem;
 import com.lfb.law.sync.model.FavSyncAllItem;
 import com.lfb.law.sync.model.PracticeProgressSyncAllItem;
 import com.lfb.law.sync.model.PracticeStatSyncAllItem;
@@ -44,6 +45,9 @@ public class SyncController {
 		
 		@Autowired
 		PracticeStatSyncAllProcessor statProcessor;
+		
+		@Autowired
+		BookmarkSyncAllProcessor bookmarkProcessor;
 		
 		@RequestMapping(method=RequestMethod.GET)
 		public void syncFromServer(){
@@ -78,6 +82,10 @@ public class SyncController {
 			case PRACTICE_STAT:
 				List<PracticeStatSyncAllItem> statResponse = statProcessor.process(SyncAllDataAdapter.<PracticeStatSyncAllItem>valueOf(data, PracticeStatSyncAllItem.class));
 				return new ResponseEntity(statResponse, HttpStatus.OK);								
+			
+			case BOOKMARK:
+				List<BookmarkSyncAllItem> bookmarkResponse = bookmarkProcessor.process(SyncAllDataAdapter.<BookmarkSyncAllItem>valueOf(data, BookmarkSyncAllItem.class));
+				return new ResponseEntity(bookmarkResponse, HttpStatus.OK);
 				
 			default:
 				return new ResponseEntity(Lists.newArrayList(), HttpStatus.OK);

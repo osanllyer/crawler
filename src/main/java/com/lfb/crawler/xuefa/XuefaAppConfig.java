@@ -4,6 +4,7 @@ import javax.sql.DataSource;
 
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
+import org.mybatis.spring.annotation.MapperScan;
 import org.mybatis.spring.mapper.MapperFactoryBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,7 +12,7 @@ import org.springframework.context.annotation.DependsOn;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 @Configuration
-//@MapperScan("com.lfb.crawler.xuefa")
+@MapperScan("com.lfb.crawler.xuefa")
 public class XuefaAppConfig {
 
     @Bean(name="xuefaQuestionDao")
@@ -44,8 +45,18 @@ public class XuefaAppConfig {
 		return new XuefaQuestionsCrawler();
 	}
 	
+	@Bean
+	public XuefaMaterialCrawler matCrawler(){
+		return new XuefaMaterialCrawler();
+	}
+	
 	@Bean XuefaDBPageModal xuefaDBPageModal(){
 		return new XuefaDBPageModal();
+	}
+	
+	@Bean
+	public XuefaMaterialDBPageModal xuefaMaterialDBPageModal(){
+		return new XuefaMaterialDBPageModal();
 	}
 	
 	@Bean

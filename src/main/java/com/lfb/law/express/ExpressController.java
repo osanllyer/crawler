@@ -36,7 +36,8 @@ public class ExpressController {
 	 */
 	@RequestMapping(value = "/id", method = RequestMethod.GET)
 	public ResponseEntity<Express> getExpress(@RequestParam("id")int id){
-	
+		//将对应的文档阅读数+1，同时生成一个随机数吧
+		expressMapper.updateReaderNum(id);
 		Express express = expressMapper.getExpress(id);
 		return new ResponseEntity<Express>(express, HttpStatus.OK);
 	}

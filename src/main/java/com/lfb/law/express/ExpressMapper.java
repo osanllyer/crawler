@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 @Mapper
 public interface ExpressMapper {
@@ -20,5 +21,9 @@ public interface ExpressMapper {
 	
 	@Select("SELECT count(1) FROM express WHERE id > #{id}")
 	public Integer checkNew(@Param("id")Integer id);
+
+	
+	@Update("UPDATE express SET `read` = `read` + 1 WHERE id = #{id}")
+	public void updateReaderNum(@Param("id")int id);
 	
 }

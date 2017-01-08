@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.RememberMeAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -32,7 +33,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception{		
 		http.csrf().disable()
-//		http
 		.httpBasic()
 		.and()
 			.authorizeRequests()
@@ -43,6 +43,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 			.antMatchers("/user/checkvalidatecode/**").permitAll()
 			.antMatchers("/swagger-ui.html/**").permitAll()
 			.antMatchers("/user/resetpasswd/**").permitAll()
+			.antMatchers(HttpMethod.GET, "/comment").permitAll()
 			.anyRequest().authenticated();
 		
 		http.logout().logoutUrl("/user/logout");

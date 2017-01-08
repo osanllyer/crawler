@@ -48,11 +48,19 @@ public class Express {
 		this.id = id;
 	}	
 	
+	public Integer getRead() {
+		return read;
+	}
+	public void setRead(Integer read) {
+		this.read = read;
+	}	
+	
 	private String title;
 	private String desc;
 	private String content;
 	private String author;
 	private Date published;
 	private Integer id;
+	private Integer read;
 	
 }

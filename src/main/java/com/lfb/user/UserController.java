@@ -16,12 +16,14 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.lfb.rank.Scorer;
 import com.lfb.sms.SmsContainer;
 import com.lfb.user.ValidateResult.CHECKRESULT;
 import com.lfb.user.dao.UserMapper;
@@ -33,6 +35,7 @@ import com.taobao.api.response.AlibabaAliqinFcSmsNumSendResponse;
 
 @RestController
 @RequestMapping(value = "/user", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+@Validated
 public class UserController {
 	
 	@Autowired
@@ -46,6 +49,9 @@ public class UserController {
 	
 	@Autowired
     protected AuthenticationManager authenticationManager;	
+	
+	@Autowired
+	Scorer scorer;
 	
 	@Autowired
 	BCryptPasswordEncoder passwordEncoder;
@@ -66,6 +72,7 @@ public class UserController {
 	
 	@RequestMapping(value="auth")
 	public Principal tokenLogin(Principal user){
+		//用户登录记分,应该用切面，或者intercepter而不是直接在这里直接写
 		return user;
 	}
 	

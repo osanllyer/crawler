@@ -3,6 +3,7 @@ package com.lfb.configure;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.validation.beanvalidation.MethodValidationPostProcessor;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -24,6 +25,15 @@ public class BeansManager {
 	public SmsContainer defaultSmsContainer(){
 		return new DefaultSmsContainer();
 	}
+	
+	/**
+	 * 用来对请求对非对象参数进行验证
+	 * @return
+	 */
+	 @Bean
+	 public MethodValidationPostProcessor methodValidationPostProcessor() {
+	      return new MethodValidationPostProcessor();
+	 }	
 	
 	/**
 	 * messageconverter

@@ -10,6 +10,7 @@ import com.lfb.law.controller.model.SyncData.SyncAction;
 import com.lfb.law.controller.model.SyncData.SyncType;
 import com.lfb.law.controller.model.SyncDataAdapter;
 import com.lfb.law.controller.model.SyncItem;
+import com.lfb.law.sync.dao.BookmarkSyncMapper;
 import com.lfb.law.sync.dao.ErrorProgressSyncMapper;
 import com.lfb.law.sync.dao.ErrorsSyncMapper;
 import com.lfb.law.sync.dao.FavProgressSyncMapper;
@@ -48,6 +49,9 @@ public class CommonSyncProcessor implements SyncProcessor {
 	@Autowired
 	PracticeEventSourceSyncMapper practiceEventSourceSyncMappper;
 	
+	@Autowired
+	BookmarkSyncMapper bookmarkSyncMapper;
+	
 	
 	@Override
 	public List<SyncItem> process(SyncDataAdapter data) {
@@ -82,6 +86,7 @@ public class CommonSyncProcessor implements SyncProcessor {
 		case EVENT_SOURCE:
 			mapper = practiceEventSourceSyncMappper;
 			break;			
+
 		default:
 			break;
 		}

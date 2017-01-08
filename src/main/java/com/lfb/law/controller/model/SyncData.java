@@ -15,7 +15,8 @@ public interface SyncData {
 		PRACTICE_PROGRESS("PRACTICE_PROGRESS", 5),
 		ERRORS("ERRORS", 6),
 		PRACTICE_STAT("PRACTICE_STAT", 7),
-		EVENT_SOURCE("EVENT_SOURCE", 8);
+		EVENT_SOURCE("EVENT_SOURCE", 8),
+		BOOKMARK("BOOKMARK", 9);
 		
 		private String type;
 		private int idx;
